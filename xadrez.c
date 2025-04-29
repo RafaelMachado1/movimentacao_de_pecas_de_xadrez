@@ -1,54 +1,63 @@
 #include <stdio.h>
 
-int main() {
-    // Movimento da Torre (usando for)
-    printf("Movimento da Torre:\n");
-    for (int i = 0; i < 5; i++) {
+// Função recursiva para simular o movimento da Torre para a direita
+void moverTorreRecursivo(int casas) {
+    if (casas > 0) {
         printf("Direita\n");
+        moverTorreRecursivo(casas - 1);
     }
-    printf("\n");
+}
 
-    // Movimento do Bispo (usando while)
-    printf("Movimento do Bispo:\n");
-    int j = 0;
-    while (j < 5) {
+// Função recursiva para simular o movimento do Bispo na diagonal (Cima, Direita)
+void moverBispoRecursivo(int casas) {
+    if (casas > 0) {
         printf("Cima, Direita\n");
-        j++;
+        moverBispoRecursivo(casas - 1);
+    }
+}
+
+// Função recursiva para simular o movimento da Rainha para a esquerda
+void moverRainhaRecursivo(int casas) {
+    if (casas > 0) {
+        printf("Esquerda\n");
+        moverRainhaRecursivo(casas - 1);
+    }
+}
+
+int main() {
+    // Movimento da Torre (usando recursão)
+    printf("Movimento da Torre (Recursivo):\n");
+    int torreCasas = 5;
+    moverTorreRecursivo(torreCasas);
+    printf("\n");
+
+    // Movimento do Bispo (usando recursão e loops aninhados)
+    printf("Movimento do Bispo (Recursivo com Loops Aninhados):\n");
+    int bispoCasas = 5;
+    for (int i = 0; i < bispoCasas; i++) {
+        for (int j = 0; j < 1; j++) { // Loop interno para consistência (poderia ser removido para simplicidade)
+            printf("Cima, Direita\n");
+        }
     }
     printf("\n");
 
-    // Movimento da Rainha (usando do-while)
-    printf("Movimento da Rainha:\n");
-    int k = 0;
-    do {
-        printf("Esquerda\n");
-        k++;
-    } while (k < 8);
+    // Movimento da Rainha (usando recursão)
+    printf("Movimento da Rainha (Recursivo):\n");
+    int rainhaCasas = 8;
+    moverRainhaRecursivo(rainhaCasas);
     printf("\n");
 
-    // Movimento do Cavalo (usando for aninhado com while)
-    printf("\nMovimento do Cavalo:\n");
+    // Movimento do Cavalo (usando loops aninhados complexos)
+    printf("Movimento do Cavalo (Loops Aninhados Complexos):\n");
     int movimento_vertical = 2;
     int movimento_horizontal = 1;
-    int passos_verticais = 0;
-    int passos_horizontais = 0;
 
-    // Loop externo (for) para controlar o número total de etapas do movimento do Cavalo
-    for (int etapa = 0; etapa < (movimento_vertical + movimento_horizontal); etapa++) {
-        // Loop interno (while) para realizar os movimentos verticais
-        while (passos_verticais < movimento_vertical) {
-            printf("Baixo\n");
-            passos_verticais++;
-            // Garantir que o loop horizontal não execute antes da hora
-            if (passos_verticais == movimento_vertical && passos_horizontais < movimento_horizontal) {
-                break; // Sai do loop while interno para executar o movimento horizontal
-            }
-        }
-
-        // Loop interno (while) para realizar os movimentos horizontais
-        while (passos_horizontais < movimento_horizontal && passos_verticais == movimento_vertical) {
-            printf("Esquerda\n");
-            passos_horizontais++;
+    // Loop externo controla a direção principal (vertical)
+    for (int v = 0; v < movimento_vertical; v++) {
+        printf("Cima\n");
+        // Loop interno com condição para o movimento horizontal após os verticais
+        for (int h = 0; h < movimento_horizontal && v == movimento_vertical - 1; h++) {
+            printf("Direita\n");
         }
     }
     printf("\n");
